@@ -1,6 +1,7 @@
 import 'package:application/screens/home_screen.dart';
 import 'package:application/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 //checking
 class LoginScreen extends StatefulWidget {
@@ -8,6 +9,26 @@ class LoginScreen extends StatefulWidget {
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
+}
+
+class Auth {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<User> handleSignInEmail(String email, String password) async {
+    UserCredential result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    final User user = result.user!;
+
+    return user;
+  }
+
+  Future<User> handleSignUp(email, password) async {
+    UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    final User user = result.user!;
+
+    return user;
+  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -25,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var authHandler = new Auth();
     //email field
     final emailField = TextFormField(
         autofocus: false,
@@ -88,7 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {},
+          onPressed: () {
+            authHandler
+                .handleSignInEmail(
+                    emailController.text, passwordController.text)
+                .then((user) => print(user))
+                .catchError((e) => print(e));
+          },
           child: Text(
             "Login",
             textAlign: TextAlign.center,

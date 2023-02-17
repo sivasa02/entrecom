@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "33506779922",
+    "project_id": "entrecom-f6c44",
+    "storage_bucket": "entrecom-f6c44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33506779922:android:c3b1d9dd612ce8ea8c09cb",
+        "android_client_info": {
+          "package_name": "com.example.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33506779922-ne8naikli191tl9gn2o287d9j6cuftj8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdk-7OOGtEIXPkxxw2nDkJlG0Xoqa1-l4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33506779922-28vvi408jokq5n0b8er8hujnue50rrg8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "33506779922-bqmnaeg6ovsb9tr60pegj39tuv1k1091.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.application"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
