@@ -43,6 +43,8 @@ dependencies:
   avatar_glow: ^2.0.2
   intl: ^0.17.0
   http: ^0.13.4
+  firebase_core: ^2.6.0
+  firebase_auth: ^4.2.7
  
    
 
