@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.lightBlueAccent,
+      color: Color.fromARGB(255, 106, 58, 183),
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -127,11 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
     final signupButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.lightBlueAccent,
+      color: Colors.deepPurple,
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegistrationScreen()));
+          },
           child: Text(
             "Create Account",
             textAlign: TextAlign.center,
