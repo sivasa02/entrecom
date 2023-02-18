@@ -114,7 +114,11 @@ class _LoginScreenState extends State<LoginScreen> {
             authHandler
                 .handleSignInEmail(
                     emailController.text, passwordController.text)
-                .then((user) => print(user))
+                .then((user) => {
+                      print(user),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()))
+                    })
                 .catchError((e) => print(e));
           },
           child: Text(
