@@ -3,6 +3,9 @@ import 'package:application/model/user_model.dart';
 import 'package:application/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'chat_screen.dart';
+import 'feed_screen.dart';
+import 'profile_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
