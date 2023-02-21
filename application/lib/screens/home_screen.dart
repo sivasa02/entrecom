@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'chat_screen.dart';
 import 'feed_screen.dart';
 import 'profile_screen.dart';
+import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,8 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedTab = 0;
-  final _pageOptions = [FeedScreen(), ChatScreen(), ProfileScreen()];
+  int _selectedTab = 3;
+  final _pageOptions = [
+    FeedScreen(),
+    ChatScreen(),
+    SearchScreen(),
+    ProfileScreen()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,6 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.deepPurple,
               ),
               label: "Chat"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.search,
+                color: Colors.deepPurple,
+              ),
+              label: "Search"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,

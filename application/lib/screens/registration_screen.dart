@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'chat_screen.dart';
 import 'feed_screen.dart';
 import 'profile_screen.dart';
+import 'search_screen.dart';
+import 'package:application/model/user_model.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -32,6 +34,15 @@ class Auth {
 
     return user;
   }
+
+  postDetailsToFirestore(UserModel) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = auth.currentUser;
+    await firebaseFirestore
+        .collection("users")
+        .doc(user?.uid)
+        .set(UserModel.toMap());
+  }
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
@@ -40,7 +51,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // editing controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-
+  final TextEditingController userNameEditingController =
+      new TextEditingController();
+  final TextEditingController secondNameEditingController =
+      new TextEditingController();
   // firebase
 
   // string for displaying the error Message
@@ -50,6 +64,52 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     var authHandler = new Auth();
     //email field
+    final userNameField = TextFormField(
+        autofocus: false,
+        controller: userNameEditingController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please Enter Valid User Name");
+          }
+          // reg expression for email validation
+
+          return null;
+        },
+        onSaved: (value) {
+          userNameEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.person),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "User Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+    final secondNameField = TextFormField(
+        autofocus: false,
+        controller: secondNameEditingController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please Enter Valid Last Name");
+          }
+          // reg expression for email validation
+
+          return null;
+        },
+        onSaved: (value) {
+          secondNameEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.person),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Last Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
     final emailField = TextFormField(
         autofocus: false,
         controller: emailController,
@@ -113,10 +173,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
+            UserModel userModel;
             authHandler
                 .handleSignUp(emailController.text, passwordController.text)
                 .then((user) => {
                       print(user),
+                      userModel = UserModel(email: user.email!),
+                      userModel.UserName = userNameEditingController.text,
+                      userModel.SecondName = secondNameEditingController.text,
+                      authHandler.postDetailsToFirestore(userModel),
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomeScreen()))
                     })
@@ -143,6 +208,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    userNameField,
+                    SizedBox(height: 25),
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
